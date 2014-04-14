@@ -1,0 +1,57 @@
+		DOCUMENTAÇÂO
+
+	O projeto deve ser executado originalmente no Eclipse, mas nós não conseguimos fazê-lo devido à quantidade de erros e problemas que tivemos durante a
+configuração das APIs. Então, decidimos fazer algumas mudanças para tornar a configuração do projeto mais simples e fácil de enender. Por isso,
+descartamos a possibilidade de usar o projeto no Eclipse, e passamos a usá-lo no próprio editor do Processing, que fornece um ambiente de desenvolvimento
+mais simples do que o Eclipse.
+	Além disso, fizemos mais uma modificação quanto às APIs usadas pelo projeto. Nós resolvemos substiruir a biblioteca OpenCV pela biblioteca PFaceDetect,
+de novo a fim de tornar o projeto mais simples.
+	Então, depois de todas essas modificações, o projeto roda no Processing e usa as seguintes APIs: SimpleOpenNI e PFaceDetect. Sendo que, originalmente,
+o projeto rodava no Eclipse e usava a SimpleOpenNI e o OpenCV.
+	Para dar uma introdução a quem assumir o projeto futuramente, irei explicar basicamnte o que essas APIs fazem.
+
+
+--> A SimpleOpenNI é uma biblioteca (conjunto de métodos, classes, enfim, códigos prontos) que trabalha com o Kinect. Nesse projeto, ela é usada para
+capturar imagens de sua câmera.
+	A função kinect.enableRGB() serve para ativar a câmera de cores do Kinect para ser usada pelo programa.
+	A função kinect.update() serve para a câmera capturar um novo frame do ambiente.
+	A função kinect.rgbImage() retorna o frame que a câmera vê naquele momento. No código, essa função é usada assim: img = kinect.rgbImage();
+		Desse jeito, a variável PImage img recebe um frame da câmera. Isso possibilita que o programa capture uma imagem do Kinect e trabalhe com ela.
+
+
+--> A PFaceDetect trabalha com a detecção de faces em si.
+	Primeiramente, o código carrega um arquivo xml contendo intruções para o programa sobre conjuntos de luzes e cores, que supostamente significam uma
+face. Assim, o programa usa esse arquivo para saber o que é uma face e o que não é.
+A linha que faz essa operação é: face = new PFaceDetect(this,width,height,"haarcascade_frontalface_alt2.xml");
+	Em seguida, o programa usa uma função dessa biblioteca para encontrar faces na imagem. A linha é: face.findFaces(img);
+Com esse comando, a variável PFaceDetect face passa a conter a "localização" de faces na variável PImage img, que é uma imagem.
+	Finalmente, o programa chama a função drawFace(), que é implementada no próprio código, para desenhar retângulos onde foram encontradas faces.
+	
+
+
+
+		INSTALAÇÃO
+
+1.Instalar Processing. (http://www.processing.org/)
+
+2. Instalar softwares do sensor kinect, nesta ordem: OpenNI, NITE, driver do sensor e
+driver do Kinect.
+Executáveis encontrados em 'Disco removível (Vítor Barcellos de Andrade):\Igor&Gabriel (Kinect)\src\Project Lena\Anexos\1. Pacote para Windows x86 e x61'
+
+3. Importar APIs para o Processing
+Copiar pastas em 'Disco removível (Vítor Barcellos de Andrade):\BACKUP PROCESSING\libraries' e colar em '%Usuário%\Documents\Processing\libraries'
+
+4. Importar sketch (projeto) para o Processing.
+Copiar pasta 'lena_3', encontrada em 'F:\BACKUP PROCESSING\sketches' e colar em '%Usuário%\Documents\Processing'
+
+PS: Para executar o projeto, deve-se ter em mãos um sensor Kinect com adaptador USB (o laboratório de pesquisas do CEFET dispõe de um adaptador).
+http://games.mercadolivre.com.br/xbox-360-acessorios/adaptador-kinect-usb
+http://lista.mercadolivre.com.br/adaptador-kinect-usb-pc
+
+
+
+		OBSERVAÇÕES QUANTO A ERROS NO PROJETO
+		
+No projeto, o tamanho da tela do sketch deve ser de 640 por 480 pixels, para os retângulos desenhados ficarem alinhados com as faces.
+
+O projeto funciona preferencialmente em sistemas de 32 bits, podendo não funcionar em sistemas de 64 bits.
